@@ -2,30 +2,9 @@
 
 **Architecture, Patterns & Internals of Anthropic's AI Coding Agent**
 
-```
-┌─────────────────────────────────────┐
-│                                     │
-│  NO'REILLY                          │
-│                                     │
-│            ,---._                   │
-│           /  🦀  \                  │
-│          | /    \ |    .map         │
-│          |/ (__) \|   /             │
-│         /|  \  /  |\-'              │
-│        / |__/  \__| \               │
-│       '---'    '---'                │
-│                                     │
-│  Claude Code                        │
-│  from Source                        │
-│                                     │
-│  Architecture, Patterns &           │
-│  Internals of Anthropic's           │
-│  AI Coding Agent                    │
-│                                     │
-│  Alejandro Balderas                 │
-│                                     │
-└─────────────────────────────────────┘
-```
+<p align="center">
+  <img src="./cover.png" alt="Claude Code from Source — Book Cover" width="400" />
+</p>
 
 ---
 
