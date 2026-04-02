@@ -4,6 +4,8 @@
 
 <p align="center">
   <img src="./assets/cover.png" alt="Claude Code from Source — Book Cover" width="400" />
+  <br/><br/>
+  <a href="https://claude-code-from-source.com"><strong>Read online at claude-code-from-source.com</strong></a>
 </p>
 
 ---
