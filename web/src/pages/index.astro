@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
+import ArchitectureExplorer from '../components/ArchitectureExplorer';
 import { parts, chapters } from '../book.config';
 
 const rawBase = import.meta.env.BASE_URL;
@@ -60,6 +61,17 @@ const base = rawBase.endsWith('/') ? rawBase : rawBase + '/';
           </div>
         ))}
       </div>
+    </section>
+
+    <!-- Architecture Explorer -->
+    <section class="mb-20">
+      <h2 class="text-2xl font-bold font-[var(--font-serif)] text-[var(--color-charcoal)] dark:text-[var(--color-cream)] mb-3">
+        Explore the architecture
+      </h2>
+      <p class="text-sm text-[var(--color-muted)] mb-6">
+        Six core abstractions power Claude Code. Drag nodes to rearrange, hover for details, click to read the chapter.
+      </p>
+      <ArchitectureExplorer client:only="react" className="w-full" />
     </section>
 
     <!-- Who This Is For -->
