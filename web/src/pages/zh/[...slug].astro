@@ -1,10 +1,10 @@
 ---
 import { getCollection, render } from 'astro:content';
-import ChapterLayout from '../layouts/ChapterLayout.astro';
-import { chapters, getPartForChapter, getAdjacentChapters, getChapterNumber } from '../book.config';
+import ChapterLayout from '../../layouts/ChapterLayout.astro';
+import { zhChapters, getPartForChapter, getAdjacentChapters, getChapterNumber } from '../../book.config';
 
 export async function getStaticPaths() {
-  const entries = await getCollection('chapters');
+  const entries = await getCollection('chaptersZh');
   return entries.map((entry) => ({
     params: { slug: entry.id },
     props: { entry },
@@ -15,9 +15,9 @@ const { entry } = Astro.props;
 const { Content, headings } = await render(entry);
 
 const chapterNum = getChapterNumber(entry.id);
-const chapterMeta = chapters.find(c => c.number === chapterNum);
-const part = getPartForChapter(chapterNum, 'en');
-const { prev, next } = getAdjacentChapters(chapterNum, 'en');
+const chapterMeta = zhChapters.find(c => c.number === chapterNum);
+const part = getPartForChapter(chapterNum, 'zh');
+const { prev, next } = getAdjacentChapters(chapterNum, 'zh');
 ---
 
 <ChapterLayout
@@ -29,7 +29,7 @@ const { prev, next } = getAdjacentChapters(chapterNum, 'en');
   prev={prev}
   next={next}
   part={part}
-  locale="en"
+  locale="zh"
 >
   <Content />
 </ChapterLayout>

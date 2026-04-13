@@ -5,4 +5,8 @@ const chapters = defineCollection({
   loader: glob({ pattern: 'ch*.md', base: '../book' }),
 });
 
-export const collections = { chapters };
+const chaptersZh = defineCollection({
+  loader: glob({ pattern: 'ch*.md', base: '../book-zh' }),
+});
+
+export const collections = { chapters, chaptersZh };

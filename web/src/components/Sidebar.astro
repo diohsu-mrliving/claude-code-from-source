@@ -1,25 +1,30 @@
 ---
-import { parts, chapters, getPartForChapter } from '../book.config';
+import { parts, chapters, zhParts, zhChapters, getPartForChapter } from '../book.config';
 
 interface Props {
   currentSlug?: string;
+  locale?: 'en' | 'zh';
 }
 
-const { currentSlug } = Astro.props;
+const { currentSlug, locale = 'en' } = Astro.props;
 const rawBase = import.meta.env.BASE_URL;
 const base = rawBase.endsWith('/') ? rawBase : rawBase + '/';
+
+const activeParts = locale === 'zh' ? zhParts : parts;
+const activeChapters = locale === 'zh' ? zhChapters : chapters;
+const chapterPrefix = locale === 'zh' ? `${base}zh/` : `${base}`;
 
 // Determine which part is currently active
 const currentChapterNum = currentSlug
   ? parseInt(currentSlug.match(/^ch(\d+)/)?.[1] || '0', 10)
   : 0;
-const currentPart = currentChapterNum ? getPartForChapter(currentChapterNum) : null;
+const currentPart = currentChapterNum ? getPartForChapter(currentChapterNum, locale) : null;
 ---
 
 <nav id="sidebar" class="hidden lg:block w-64 shrink-0">
   <div class="sticky top-14 h-[calc(100vh-3.5rem)] overflow-y-auto py-6 px-4">
-    {parts.map((part) => {
-      const partChapters = chapters.filter(c => part.chapters.includes(c.number));
+    {activeParts.map((part) => {
+      const partChapters = activeChapters.filter(c => part.chapters.includes(c.number));
       const isActivePart = currentPart?.number === part.number;
 
       return (
@@ -56,7 +61,7 @@ const currentPart = currentChapterNum ? getPartForChapter(currentChapterNum) : n
               return (
                 <li>
                   <a
-                    href={`${base}${ch.slug}/`}
+                    href={`${chapterPrefix}${ch.slug}/`}
                     class:list={[
                       'block py-1.5 px-3 rounded-md text-sm transition-colors',
                       isActive
@@ -81,8 +86,8 @@ const currentPart = currentChapterNum ? getPartForChapter(currentChapterNum) : n
 <div id="sidebar-overlay" class="fixed inset-0 z-40 bg-black/40 hidden lg:hidden" />
 <div id="sidebar-mobile" class="fixed top-0 left-0 z-50 w-72 h-full bg-[var(--color-cream)] dark:bg-[var(--color-charcoal)] shadow-xl transform -translate-x-full transition-transform duration-200 lg:hidden overflow-y-auto">
   <div class="p-4 pt-16">
-    {parts.map((part) => {
-      const partChapters = chapters.filter(c => part.chapters.includes(c.number));
+    {activeParts.map((part) => {
+      const partChapters = activeChapters.filter(c => part.chapters.includes(c.number));
       const isActivePart = currentPart?.number === part.number;
 
       return (
@@ -96,7 +101,7 @@ const currentPart = currentChapterNum ? getPartForChapter(currentChapterNum) : n
               return (
                 <li>
                   <a
-                    href={`${base}${ch.slug}/`}
+                    href={`${chapterPrefix}${ch.slug}/`}
                     class:list={[
                       'block py-1.5 px-3 rounded-md text-sm transition-colors',
                       isActive

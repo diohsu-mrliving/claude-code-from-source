@@ -23,18 +23,19 @@ interface Props {
   prev: ChapterConfig | null;
   next: ChapterConfig | null;
   part: PartConfig | undefined;
+  locale?: 'en' | 'zh';
 }
 
-const { title, description, chapterNumber, slug, headings, prev, next, part } = Astro.props;
+const { title, description, chapterNumber, slug, headings, prev, next, part, locale = 'en' } = Astro.props;
 const showPartHeader = part && isFirstChapterOfPart(chapterNumber);
 ---
 
 <BaseLayout title={`Ch ${chapterNumber}. ${title} | Claude Code from Source`} description={description}>
   <ReadingProgress />
-  <Header />
+  <Header locale={locale} slug={slug} />
 
   <div id="chapter-layout" class="flex max-w-[90rem] mx-auto">
-    <Sidebar currentSlug={slug} />
+    <Sidebar currentSlug={slug} locale={locale} />
 
     <main class="flex-1 min-w-0 px-4 md:px-8 lg:px-12 py-8 transition-all duration-200">
       {showPartHeader && (

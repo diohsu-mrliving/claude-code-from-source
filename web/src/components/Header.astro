@@ -1,6 +1,13 @@
 ---
 import ThemeToggle from './ThemeToggle.astro';
+import LanguageSwitcher from './LanguageSwitcher.astro';
 
+interface Props {
+  locale?: 'en' | 'zh';
+  slug?: string;
+}
+
+const { locale = 'en', slug } = Astro.props;
 const rawBase = import.meta.env.BASE_URL;
 const base = rawBase.endsWith('/') ? rawBase : rawBase + '/';
 ---
@@ -44,6 +51,7 @@ const base = rawBase.endsWith('/') ? rawBase : rawBase + '/';
         </svg>
       </button>
 
+      <LanguageSwitcher locale={locale} slug={slug} />
       <a
         href="https://github.com/alejandrobalderas/claude-code-from-source"
         target="_blank"
